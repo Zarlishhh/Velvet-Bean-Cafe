@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pizza - Velvet Bean Cafe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">☕ Velvet Bean Cafe</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="pizza.html" class="active">Pizza</a>
+            <a href="pasta.html">Pasta</a>
+            <a href="burgers.html">Burgers</a>
+            <a href="beverages.html">Beverages</a>
+            <a href="desserts.html">Desserts</a>
+        </nav>
+        <a href="checkout.html" class="view-cart-link" style="color: #c29b61 !important; text-decoration: none !important;">🛒 View Cart</a>
+    </header>
+
+    <div class="container">
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="images/Margherita Pizza.jpg" alt="Margherita Pizza">
+                <div class="menu-info">
+                    <h3>Margherita Pizza</h3>
+                    <p>Fresh mozzarella, tomatoes, and basil.</p>
+                    <span class="price">$10.50</span>
+                    <button class="cart-btn">Add to Cart</button>
+                    <button class="buy-btn">Instant Buy</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="images/Pepperoni Feast.webp" alt="Pepperoni Feast">
+                <div class="menu-info">
+                    <h3>Pepperoni Feast</h3>
+                    <p>Loaded with double pepperoni and cheese.</p>
+                    <span class="price">$12.00</span>
+                    <button class="cart-btn">Add to Cart</button>
+                    <button class="buy-btn">Instant Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Velvet Bean Cafe. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.cart-btn').forEach(btn => {
+            btn.onclick = function() {
+                let box = this.closest('.menu-item');
+                let item = {
+                    name: box.querySelector('h3').innerText,
+                    price: box.querySelector('.price').innerText,
+                    image: box.querySelector('img').src,
+                    quantity: 1
+                };
+                let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+                let found = cart.find(i => i.name === item.name);
+                if(found) found.quantity++; else cart.push(item);
+                localStorage.setItem('cartItems', JSON.stringify(cart));
+                alert("Added to cart!");
+            };
+        });
+
+        document.querySelectorAll('.buy-btn').forEach(btn => {
+            btn.onclick = function() {
+                let box = this.closest('.menu-item');
+                let item = [{
+                    name: box.querySelector('h3').innerText,
+                    price: box.querySelector('.price').innerText,
+                    image: box.querySelector('img').src,
+                    quantity: 1
+                }];
+                localStorage.setItem('buyNowItem', JSON.stringify(item));
+                window.location.href = 'checkout.html?mode=buynow';
+            };
+        });
+    </script>
+</body>
+</html>

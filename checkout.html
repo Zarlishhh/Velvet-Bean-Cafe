@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout - Velvet Bean Cafe</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .checkout-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .toggle-nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .toggle-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #666;
+        }
+        .toggle-btn.active {
+            color: #3b2f2f;
+            border-bottom: 2px solid #c29b61;
+        }
+        .checkout-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+        /* Chote Square Qty Buttons */
+        .qty-btn {
+            background: #f0ebe1;
+            border: 1px solid #ccc;
+            width: 24px;
+            height: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .qty-btn:hover {
+            background: #e2d8cc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">☕ Velvet Bean Cafe</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="pizza.html">Menu</a>
+        </nav>
+        <a href="checkout.html" class="view-cart-link">🛒 View Cart</a>
+    </header>
+
+    <div class="container">
+        <div class="checkout-box">
+            <div class="toggle-nav">
+                <button id="cartTab" class="toggle-btn" onclick="switchMode('cart')">Cart Items</button>
+                <button id="buyNowTab" class="toggle-btn" onclick="switchMode('buynow')">Instant Buy</button>
+            </div>
+            <div id="orderSummary"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Velvet Bean Cafe. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentMode = urlParams.get('mode') === 'buynow' ? 'buynow' : 'cart';
+
+        function switchMode(mode) {
+            currentMode = mode;
+            window.history.replaceState({}, '', mode === 'buynow' ? 'checkout.html?mode=buynow' : 'checkout.html');
+            loadCheckout();
+        }
+
+        function loadCheckout() {
+            let summaryDiv = document.getElementById('orderSummary');
+            let cartTab = document.getElementById('cartTab');
+            let buyNowTab = document.getElementById('buyNowTab');
+            let key = currentMode === 'buynow' ? 'buyNowItem' : 'cartItems';
+            let items = JSON.parse(localStorage.getItem(key)) || [];
+
+            if(currentMode === 'buynow') {
+                buyNowTab.classList.add('active');
+                cartTab.classList.remove('active');
+            } else {
+                cartTab.classList.add('active');
+                buyNowTab.classList.remove('active');
+            }
+
+            if(items.length === 0) {
+                summaryDiv.innerHTML = `<p style="color:#666;">No items found in this section.</p>`;
+                return;
+            }
+
+            let html = '';
+            let subtotal = 0;
+
+            items.forEach((item, index) => {
+                let priceNum = parseFloat(item.price.replace('$', '')) || 0;
+                let total = priceNum * item.quantity;
+                subtotal += total;
+
+                html += `
+                    <div class="checkout-item">
+                        <div style="display:flex; gap:15px; align-items:center;">
+                            <img src="${item.image}" style="width:70px; height:60px; object-fit:cover; border-radius:4px;">
+                            <div>
+                                <h4 style="color:#3b2f2f; font-size:0.95rem;">${item.name}</h4>
+                                <p style="color:#a3704c; font-weight:bold; font-size:0.85rem;">${item.price}</p>
+                                <div style="display:flex; align-items:center; gap:6px; margin-top:5px;">
+                                    <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                                    <span style="font-size:0.85rem;">Qty: <strong>${item.quantity}</strong></span>
+                                    <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <strong style="color:#3b2f2f;">$${total.toFixed(2)}</strong>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div style="margin-top:20px; font-size:0.95rem;">
+                    <p style="display:flex; justify-content:space-between; margin:6px 0;"><span>Subtotal:</span> <span>$${subtotal.toFixed(2)}</span></p>
+                    <p style="display:flex; justify-content:space-between; margin:6px 0;"><span>Delivery:</span> <span>$2.00</span></p>
+                    <hr style="border:0; border-top:1px solid #ddd; margin:10px 0;">
+                    <p style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.1rem; color:#a3704c;"><span>Total:</span> <span>$${(subtotal + 2).toFixed(2)}</span></p>
+                    <button class="place-order-btn" onclick="placeOrder()" style="background:#3b2f2f; color:#fff; margin-top:15px; width:100%; padding:10px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Place Order</button>
+                </div>
+            `;
+            summaryDiv.innerHTML = html;
+        }
+
+        function changeQty(index, amount) {
+            let key = currentMode === 'buynow' ? 'buyNowItem' : 'cartItems';
+            let items = JSON.parse(localStorage.getItem(key)) || [];
+            items[index].quantity += amount;
+            if(items[index].quantity <= 0) items.splice(index, 1);
+            localStorage.setItem(key, JSON.stringify(items));
+            loadCheckout();
+        }
+
+        function placeOrder() {
+            alert('Order Placed Successfully!');
+            localStorage.removeItem(currentMode === 'buynow' ? 'buyNowItem' : 'cartItems');
+            window.location.href = 'index.html';
+        }
+
+        loadCheckout();
+    </script>
+</body>
+</html>

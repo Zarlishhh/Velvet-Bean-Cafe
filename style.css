@@ -1,0 +1,297 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+body {
+    background-color: #faf7f2;
+    color: #333;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: #3b2f2f;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4%;
+}
+
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Header Links - Absolute Fix for Purple Color */
+header nav a, 
+header nav a:link, 
+header nav a:visited, 
+header nav a:active {
+    color: #fff !important;
+    text-decoration: none !important;
+    margin: 0 10px;
+    font-size: 1rem;
+}
+
+header nav a:hover, 
+header nav a.active {
+    color: #c29b61 !important;
+}
+
+/* View Cart Link Fix */
+header .view-cart-link, 
+header .view-cart-link:link, 
+header .view-cart-link:visited, 
+header .view-cart-link:active {
+    color: #c29b61 !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+header .view-cart-link:hover {
+    color: #dfb576 !important;
+}
+
+.container {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.menu-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.menu-item {
+    background: white;
+    border-radius: 8px;
+    width: 280px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.menu-info {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item h3 {
+    color: #3b2f2f;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.menu-item p {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.price {
+    font-weight: bold;
+    color: #a3704c;
+    font-size: 1.1rem;
+}
+
+.cart-btn, .buy-btn, .place-order-btn {
+    width: 100%;
+    padding: 9px;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cart-btn {
+    background-color: #f0ebe1;
+    color: #3b2f2f;
+    margin-top: 5px;
+}
+
+.buy-btn {
+    background-color: #3b2f2f;
+    color: #fff;
+    margin-top: 5px;
+}
+
+footer {
+    background: #231b1b;
+    color: #fff;
+    text-align: center;
+    padding: 15px;* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+body {
+    background-color: #faf7f2;
+    color: #333;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: #3b2f2f;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4%;
+}
+
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Universal Link Fix for All Pages to Prevent Purple Color */
+header a, 
+header a:link, 
+header a:visited, 
+header a:active {
+    color: #fff !important;
+    text-decoration: none !important;
+    margin: 0 10px;
+    font-size: 1rem;
+}
+
+header a:hover, 
+header a.active {
+    color: #c29b61 !important;
+}
+
+/* View Cart Link Color Fix */
+header .view-cart-link, 
+header .view-cart-link:link, 
+header .view-cart-link:visited, 
+header .view-cart-link:active {
+    color: #c29b61 !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+header .view-cart-link:hover {
+    color: #dfb576 !important;
+}
+
+.container {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.menu-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.menu-item {
+    background: white;
+    border-radius: 8px;
+    width: 280px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.menu-info {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item h3 {
+    color: #3b2f2f;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.menu-item p {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.price {
+    font-weight: bold;
+    color: #a3704c;
+    font-size: 1.1rem;
+}
+
+.cart-btn, .buy-btn, .place-order-btn {
+    width: 100%;
+    padding: 9px;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cart-btn {
+    background-color: #f0ebe1;
+    color: #3b2f2f;
+    margin-top: 5px;
+}
+
+.buy-btn {
+    background-color: #3b2f2f;
+    color: #fff;
+    margin-top: 5px;
+}
+
+footer {
+    background: #231b1b;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+}
+    font-size: 0.9rem;
+}
